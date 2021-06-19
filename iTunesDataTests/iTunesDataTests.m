@@ -84,11 +84,44 @@
 
     NSData *oResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
 
-    if([responseCode statusCode] != 200){
+    if([responseCode statusCode] != 200)
+    {
         NSLog(@"Error getting %@, HTTP status code %li", url, (long)[responseCode statusCode]);
         return nil;
     }
 
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:oResponseData options:NSJSONReadingMutableContainers error:&error];
+    if (json.count > 0)
+    {
+        NSLog(@" *** JSON Key-results count: %lu", (unsigned long)[[json objectForKey:@"results"] count]); // Log results key count.
+        //NSLog(@" *** JSON Key-results: %@", [json objectForKey:@"results"]); // Log all items from results key.
+        for (int x = 0; x < [[json objectForKey:@"results"] count]; x++)
+        {
+            // Convert to Date Format
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"]; //en_US //en_US_POSIX
+            dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZZZ";
+            dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+            NSDate *formattedDate = [dateFormatter dateFromString:[[[json objectForKey:@"results"] objectAtIndex:x] objectForKey:@"releaseDate"]];
+            //NSLog(@" *** JSON Key - Date:  %@", formattedDate);
+
+            
+            // Convert to String Date
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateStyle:NSDateFormatterMediumStyle];
+            [formatter setTimeStyle:NSDateFormatterNoStyle];
+            //NSLog(@" *** Converted Date: %@", [formatter stringFromDate:formattedDate]);
+            
+            // Log all artist names, track names, release dates, primary genre name and track price.
+            NSLog(@" *** JSON Key - Artist Name: %@, Track Name: %@, Release Date: %@, Genre Name: %@, Track Price: %@",
+                  [[[json objectForKey:@"results"] objectAtIndex:x] objectForKey:@"artistName"],
+                  [[[json objectForKey:@"results"] objectAtIndex:x] objectForKey:@"trackName"],
+                  [formatter stringFromDate:formattedDate],
+                  [[[json objectForKey:@"results"] objectAtIndex:x] objectForKey:@"primaryGenreName"],
+                  [[[json objectForKey:@"results"] objectAtIndex:x] objectForKey:@"trackPrice"]);
+        }
+    }
+    
     NSString *newString = [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
     NSLog(@" *** Data received: %@", newString);
     return [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
