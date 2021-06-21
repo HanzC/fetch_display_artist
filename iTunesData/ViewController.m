@@ -239,41 +239,41 @@ UIActivityIndicatorView *spinner;
 //                  [[[json objectForKey:@"results"] objectAtIndex:indexPath.row] objectForKey:@"trackPrice"]);
             
             // Initialize Artist Name Label
-            UILabel *artistName = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, _tableView.frame.size.width - 25, 20)];
+            UILabel *artistName = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, _tableView.frame.size.width - 5, 20)];
             artistName.font =  [UIFont fontWithName:@"Arial-BoldMT" size:15];
-            artistName.backgroundColor = [UIColor greenColor];
+            artistName.backgroundColor = [UIColor clearColor];
             artistName.text = [[[json objectForKey:@"results"] objectAtIndex:indexPath.row] objectForKey:@"artistName"];
             artistName.adjustsFontSizeToFitWidth = YES;
             [cell.contentView addSubview:artistName];
             
             // Initialize Artist Name Label
-            UILabel *trackName = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(artistName.frame) + 2, _tableView.frame.size.width - 25, 25)];
+            UILabel *trackName = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(artistName.frame) + 2, _tableView.frame.size.width - 5, 25)];
             trackName.font =  [UIFont fontWithName:@"Arial" size:14];
-            trackName.backgroundColor = [UIColor yellowColor];
+            trackName.backgroundColor = [UIColor clearColor];
             trackName.text = [[[json objectForKey:@"results"] objectAtIndex:indexPath.row] objectForKey:@"trackName"];
             trackName.adjustsFontSizeToFitWidth = YES;
             [cell.contentView addSubview:trackName];
             
             // Initialize Release Date Label
-            UILabel *date = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(trackName.frame) + 2, _tableView.frame.size.width/2 + 25, 25)];
+            UILabel *date = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(trackName.frame) + 2, _tableView.frame.size.width - 5, 25)];
             date.font =  [UIFont fontWithName:@"Arial" size:14];
-            date.backgroundColor = [UIColor yellowColor];
+            date.backgroundColor = [UIColor clearColor];
             date.text = [formatter stringFromDate:formattedDate];
             date.adjustsFontSizeToFitWidth = YES;
             [cell.contentView addSubview:date];
             
             // Initialize Genre Name Label
-            UILabel *genre = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(date.frame) + 2, _tableView.frame.size.width/2 + 25, 25)];
+            UILabel *genre = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(date.frame) + 2, _tableView.frame.size.width - 5, 25)];
             genre.font =  [UIFont fontWithName:@"Arial" size:14];
-            genre.backgroundColor = [UIColor yellowColor];
+            genre.backgroundColor = [UIColor clearColor];
             genre.text = [[[json objectForKey:@"results"] objectAtIndex:indexPath.row] objectForKey:@"primaryGenreName"];
             genre.adjustsFontSizeToFitWidth = YES;
             [cell.contentView addSubview:genre];
             
             // Initialize Track Price Label
-            UILabel *price = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(genre.frame) + 2, _tableView.frame.size.width/2 + 25, 25)];
+            UILabel *price = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(genre.frame) + 2, _tableView.frame.size.width - 5, 25)];
             price.font =  [UIFont fontWithName:@"Arial" size:14];
-            price.backgroundColor = [UIColor yellowColor];
+            price.backgroundColor = [UIColor clearColor];
             price.text = [NSString stringWithFormat:@"%@", [[[json objectForKey:@"results"] objectAtIndex:indexPath.row] objectForKey:@"trackPrice"]];
             price.adjustsFontSizeToFitWidth = YES;
             [cell.contentView addSubview:price];
